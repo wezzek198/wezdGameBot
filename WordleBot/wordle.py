@@ -97,8 +97,7 @@ WORD_DATABASE = {
         "words": [
             "электромагнитный", "гидроэлектростанция", "теплоэлектростанция",
             "радиолокационный", "фотоэлектрический", "гидроакустический",
-            "сейсмостойкий", "метеорологический", "океанографический",
-            "палеонтологический", "археологический", "антропологический",
+            "сейсмостойкий", "метеорологический", "океанографический", "палеонтологический", "археологический", "антропологический",
             "этнографический", "лингвистический", "филологический",
             "психологический", "социологический", "философский",
             "идеологический", "методологический", "теоретический",
@@ -142,7 +141,7 @@ game_links = {}  # {game_id: {'creator_id': X, 'word': 'слово', 'level': Y,
 leaderboard = {}
 weekly_stats = {}
 user_stats = {}
-active_games = {}  # {game_id: {'creator': X, 'word': 'word', 'level': Z, 'game_type': 'bot' или 'friend'}}
+active_games = {}  # {game_id: {'creator': X, 'word': 'word', 'level': Z, 'game_type': 'bot' или 'friend', 'players': [user_ids]}}
 user_progress = {}  # {user_id: {level: [отгаданные_слова], 'max_level': X, 'total_words': Y}}
 
 async def notify_owner(context: ContextTypes.DEFAULT_TYPE, message: str):
@@ -312,22 +311,20 @@ async def manual_weekly_reset_command(update: Update, context: ContextTypes.DEFA
 async def check_subscription(user_id: int, context: ContextTypes.DEFAULT_TYPE) -> bool:
     """Проверяет, подписан ли пользователь на канал"""
     try:
-        # Пробуем получить информацию о канале
         chat = await context.bot.get_chat(f"@{CHANNEL_USERNAME}")
         logging.info(f"Канал найден: {chat.title}")
         
-        # Пробуем получить информацию о пользователе в канале
         try:
             member = await context.bot.get_chat_member(f"@{CHANNEL_USERNAME}", user_id)
             is_subscribed = member.status in ['member', 'administrator', 'creator']
             logging.info(f"Статус пользователя {user_id} в канале: {member.status}, подписан: {is_subscribed}")
             return is_subscribed
         except Exception as e:
-            logging.warning(f"Пользователь {user_id} не подписан на канал или ошибка проверки: {e}")
+            logging.warning(f"Пользователь {user_id} не подписан на канал: {e}")
             return False
     except Exception as e:
         logging.error(f"Ошибка доступа к каналу @{CHANNEL_USERNAME}: {e}")
-        # Если канал приватный или недоступен, пропускаем проверку
+        # Если канал недоступен, считаем что проверка прошла
         return True
 
 async def update_leaderboard(user_id: int, user_name: str, points: int, game_type: str = "bot"):
@@ -405,8 +402,7 @@ def update_user_progress(user_id: int, level: int, word: str):
     progress = get_user_progress(user_id, level)
     
     if word not in progress['levels'].get(level, []):
-        if level not in progress['levels']:
-            progress['levels'][level] = []
+        if level not in progress['levels']: progress['levels'][level] = []
         progress['levels'][level].append(word)
         progress['total_words'] += 1
         
@@ -509,7 +505,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Логируем запуск бота
         logging.info(f"🚀 /start от {full_name} (ID: {user_id}, Username: {username})")
         
-        # Уведомляем владельца о новом пользователе (если это новый пользователь)
+        # Уведомляем владельца о новом пользователе
         if user_id not in user_stats:
             await notify_owner(context, f"👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*\n\n"
                                   f"Имя: {full_name}\n"
@@ -517,15 +513,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                   f"Username: {username}\n"
                                   f"Время: {datetime.now().strftime('%d.%m.%Y %H:%M')}")
         
-        # Проверяем подписку (но не блокируем, если проверка не работает)
-        try:
-            is_subscribed = await check_subscription(user.id, context)
+        # Проверяем, есть ли параметры в /start
+        if context.args:
+            # Это переход по ссылке, проверяем подписку
+            is_subscribed = await check_subscription(user_id, context)
             if not is_subscribed:
                 await show_subscription_required(update, context)
                 return
-        except Exception as e:
-            logging.error(f"Ошибка при проверке подписки: {e}")
-            # Продолжаем без проверки подписки
         
         # Получаем прогресс пользователя
         progress = get_user_progress(user_id)
@@ -552,7 +546,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         welcome_text += "Топ-3 игрока каждой недели получают бонусные очки!\n"
         welcome_text += f"Подробности в канале: @{CHANNEL_USERNAME}"
         
-        # Проверяем, откуда пришел запрос
         if update.callback_query:
             await update.callback_query.edit_message_text(
                 welcome_text,
@@ -588,8 +581,7 @@ async def show_subscription_required(update: Update, context: ContextTypes.DEFAU
                 "• Получать недельные награды\n"
                 "• Участвовать в турнирах\n\n"
                 f"Канал: @{CHANNEL_USERNAME}\n\n"
-                "Подпишись и нажми 'Я подписался'",
-                parse_mode='Markdown',
+                "Подпишись и нажми 'Я подписался'", parse_mode='Markdown',
                 reply_markup=reply_markup
             )
         elif hasattr(update, 'callback_query'):
@@ -614,7 +606,6 @@ async def handle_callback_query(update: Update, context: ContextTypes.DEFAULT_TY
     
     user = query.from_user
     
-    # Логируем нажатие кнопки
     logging.info(f"🔘 Кнопка {query.data} от {user.full_name} (ID: {user.id})")
     
     try:
@@ -650,9 +641,17 @@ async def handle_callback_query(update: Update, context: ContextTypes.DEFAULT_TY
                 )
         
         elif query.data == "play_with_bot":
+            # Проверяем подписку
+            if not await check_subscription(user.id, context):
+                await show_subscription_required(update, context)
+                return
             await choose_bot_level(update, context)
         
         elif query.data == "play_with_friend":
+            # Проверяем подписку
+            if not await check_subscription(user.id, context):
+                await show_subscription_required(update, context)
+                return
             await choose_friend_level(update, context)
         
         elif query.data == "leaderboard":
@@ -668,13 +667,25 @@ async def handle_callback_query(update: Update, context: ContextTypes.DEFAULT_TY
             await start(update, context)
         
         elif query.data == "friend_bot_words":
+            # Проверяем подписку
+            if not await check_subscription(user.id, context):
+                await show_subscription_required(update, context)
+                return
             await choose_friend_bot_level(update, context)
         
         elif query.data.startswith("bot_level_"):
+            # Проверяем подписку
+            if not await check_subscription(user.id, context):
+                await show_subscription_required(update, context)
+                return
             level = int(query.data.split("_")[2])
             await start_bot_game(update, context, level)
         
         elif query.data.startswith("friend_level_"):
+            # Проверяем подписку
+            if not await check_subscription(user.id, context):
+                await show_subscription_required(update, context)
+                return
             level = int(query.data.split("_")[2])
             user_id = query.from_user.id
             
@@ -700,6 +711,10 @@ async def handle_callback_query(update: Update, context: ContextTypes.DEFAULT_TY
                 await start_bot_game_for_friend(update, context, level)
         
         elif query.data.startswith("friend_bot_level_"):
+            # Проверяем подписку
+            if not await check_subscription(user.id, context):
+                await show_subscription_required(update, context)
+                return
             level = int(query.data.split("_")[3])
             await start_bot_game_for_friend(update, context, level)
     
@@ -721,14 +736,12 @@ async def choose_bot_level(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = []
     for level, info in WORD_DATABASE.items():
         if level != 7:  # Исключаем свободный режим
-            # Проверяем, открыт ли уровень
             if not is_level_unlocked(user.id, level):
-                if level == 6:  # Особое оформление для легендарного уровня
+                if level == 6:
                     keyboard.append([InlineKeyboardButton(f"🔒 {info['name']} (2 слова!) - {info['points']}⭐", callback_data="locked")])
                 else:
                     keyboard.append([InlineKeyboardButton(f"🔒 {info['name']} - {info['points']}⭐", callback_data="locked")])
             else:
-                # Проверяем, есть ли доступные слова
                 available_words = get_available_words(user.id, level)
                 if not available_words:
                     if level == 6:
@@ -740,7 +753,7 @@ async def choose_bot_level(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     guessed = len(progress['levels'].get(level, []))
                     total = len(WORD_DATABASE[level]['words'])
                     
-                    if level == 6:  # Особое оформление для легендарного уровня
+                    if level == 6:
                         keyboard.append([InlineKeyboardButton(f"{info['name']} ({guessed}/{total}) - {info['points']}⭐", callback_data=f"bot_level_{level}")])
                     else:
                         keyboard.append([InlineKeyboardButton(f"{info['name']} ({guessed}/{total}) - {info['points']}⭐", callback_data=f"bot_level_{level}")])
@@ -791,8 +804,7 @@ async def choose_friend_bot_level(update: Update, context: ContextTypes.DEFAULT_
     
     keyboard = []
     for level, info in WORD_DATABASE.items():
-        if level != 7:  # Исключаем свободный режим
-            # Проверяем, открыт ли уровень
+        if level != 7:
             if not is_level_unlocked(user.id, level):
                 if level == 6:
                     keyboard.append([InlineKeyboardButton(f"🔒 {info['name']} (2 слова!)", callback_data="locked")])
@@ -822,7 +834,6 @@ async def start_bot_game(update: Update, context: ContextTypes.DEFAULT_TYPE, lev
     user = query.from_user
     user_id = user.id
     
-    # Проверяем, открыт ли уровень
     if not is_level_unlocked(user_id, level):
         await query.edit_message_text(
             f"❌ *Уровень заблокирован!*\n\n"
@@ -833,11 +844,9 @@ async def start_bot_game(update: Update, context: ContextTypes.DEFAULT_TYPE, lev
         )
         return
     
-    # Получаем доступные слова
     available_words = get_available_words(user_id, level)
     
     if not available_words:
-        # Все слова уровня отгаданы
         await query.edit_message_text(
             f"🎉 *Поздравляем! Ты полностью прошел уровень {WORD_DATABASE[level]['name']}!*\n\n"
             f"Все слова этого уровня отгаданы! 🏆\n\n"
@@ -848,10 +857,8 @@ async def start_bot_game(update: Update, context: ContextTypes.DEFAULT_TYPE, lev
     
     secret_word = random.choice(available_words)
     
-    # Логируем начало игры
     logging.info(f"🎮 Начата игра: {user.full_name} (ID: {user_id}) - Уровень {level}: {secret_word}")
     
-    # Уведомляем владельца о начале игры
     await notify_owner(context, f"🎮 *НОВАЯ ИГРА НАЧАТА!*\n\n"
                           f"Игрок: {user.full_name}\n"
                           f"ID: `{user_id}`\n"
@@ -859,16 +866,13 @@ async def start_bot_game(update: Update, context: ContextTypes.DEFAULT_TYPE, lev
                           f"Слово: ||{secret_word}||\n"
                           f"Время: {datetime.now().strftime('%d.%m.%Y %H:%M')}")
     
-    # Сохраняем игру
     user_games[user_id] = {
-        'word': secret_word,
-        'guesses': [],
+        'word': secret_word, 'guesses': [],
         'level': level,
         'game_type': 'bot',
         'start_time': datetime.now().isoformat()
     }
     
-    # Особое сообщение для легендарного уровня
     if level == 6:
         level_message = (
             f"👑 *Легендарный уровень!*\n\n"
@@ -905,7 +909,6 @@ async def start_bot_game_for_friend(update: Update, context: ContextTypes.DEFAUL
     user = query.from_user
     user_id = user.id
     
-    # Проверяем, открыт ли уровень
     if not is_level_unlocked(user_id, level):
         await query.edit_message_text(
             f"❌ *Уровень заблокирован!*\n\n"
@@ -916,7 +919,6 @@ async def start_bot_game_for_friend(update: Update, context: ContextTypes.DEFAUL
         )
         return
     
-    # Выбираем случайное слово из базы
     level_info = WORD_DATABASE[level]
     available_words = [w for w in level_info['words'] if w not in used_words]
     
@@ -930,38 +932,34 @@ async def start_bot_game_for_friend(update: Update, context: ContextTypes.DEFAUL
     
     secret_word = random.choice(available_words)
     
-    # Логируем создание игры с другом
     logging.info(f"👥 Игра с другом создана: {user.full_name} (ID: {user_id}) - Уровень {level}")
     
-    # Генерируем уникальный ID игры
     game_id = f"friend_{user_id}_{int(datetime.now().timestamp())}_{random.randint(1000, 9999)}"
     
-    # Сохраняем ссылку на игру
     game_links[game_id] = {
         'creator_id': user_id,
         'creator_name': user.full_name,
         'word': secret_word,
         'level': level,
         'game_type': 'friend',
-        'created_at': datetime.now().isoformat()
+        'created_at': datetime.now().isoformat(),
+        'players': []  # Список игроков, которые присоединились
     }
     
-    # Сохраняем активную игру
     active_games[game_id] = {
         'creator': user_id,
         'creator_name': user.full_name,
         'word': secret_word,
         'level': level,
-        'game_type': 'friend'
+        'game_type': 'friend',
+        'players': []  # Список игроков, которые присоединились
     }
     
-    # Создаем ссылку
     bot_username = (await context.bot.get_me()).username
     share_url = f"https://t.me/{bot_username}?start={game_id}"
     
     save_data()
     
-    # Уведомляем владельца
     await notify_owner(context, f"👥 *СОЗДАНА ИГРА С ДРУГОМ!*\n\n"
                           f"Создатель: {user.full_name}\n"
                           f"ID: `{user_id}`\n"
@@ -970,8 +968,7 @@ async def start_bot_game_for_friend(update: Update, context: ContextTypes.DEFAUL
                           f"Ссылка: `{share_url}`\n"
                           f"Время: {datetime.now().strftime('%d.%m.%Y %H:%M')}")
     
-    keyboard = [
-        [InlineKeyboardButton("🎮 Начать отгадывать", url=share_url)],
+    keyboard = [[InlineKeyboardButton("🎮 Начать отгадывать", url=share_url)],
         [InlineKeyboardButton("🔙 Назад", callback_data="play_with_friend")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -979,7 +976,7 @@ async def start_bot_game_for_friend(update: Update, context: ContextTypes.DEFAUL
     level_name = WORD_DATABASE[level]["name"]
     points = WORD_DATABASE[level]["points"]
     
-    if level == 6:  # Легендарный уровень
+    if level == 6:
         word_display = f"*{secret_word.upper()}* (два слова)"
     else:
         word_display = f"*{secret_word.upper()}*"
@@ -1005,7 +1002,6 @@ async def show_leaderboard_callback(update: Update, context: ContextTypes.DEFAUL
         await query.edit_message_text("📊 Таблица лидеров пока пуста! Сыграй первую игру!")
         return
     
-    # Топ по очкам
     sorted_by_points = sorted(leaderboard.items(), key=lambda x: x[1]['total_points'], reverse=True)
     
     leaderboard_text = "🏆 *ТОП-10 ИГРОКОВ (все время):*\n\n"
@@ -1023,7 +1019,6 @@ async def show_leaderboard_callback(update: Update, context: ContextTypes.DEFAUL
         leaderboard_text += f"   🤖 Побед с ботом: {data.get('bot_wins', 0)}\n"
         leaderboard_text += f"   👥 Побед с друзьями: {data.get('friend_wins', 0)}\n\n"
     
-    # Недельный топ
     if weekly_stats:
         sorted_weekly = sorted(weekly_stats.items(), key=lambda x: x[1]['points'], reverse=True)
         
@@ -1058,7 +1053,6 @@ async def show_my_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
         stats = user_stats[user.id]
         progress = get_user_progress(user.id)
         
-        # Определяем ранг
         total_points = stats['total_points']
         if total_points >= 1000:
             rank = "👑 Легенда"
@@ -1073,7 +1067,6 @@ async def show_my_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             rank = "🍀 Начинающий"
         
-        # Вычисляем процент побед
         win_rate = (stats['games_won'] / stats['games_played'] * 100) if stats['games_played'] > 0 else 0
         
         stats_text = (
@@ -1090,8 +1083,7 @@ async def show_my_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"*Прогресс по уровням:*\n"
         )
         
-        # Показываем прогресс по каждому уровню
-        for level in range(1, 7):  # Уровни 1-6
+        for level in range(1, 7):
             level_info = WORD_DATABASE[level]
             guessed = len(progress['levels'].get(level, []))
             total = len(level_info['words'])
@@ -1112,7 +1104,6 @@ async def show_my_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
             stats_text += f"⭐ Очков: {weekly['points']}\n"
             stats_text += f"🏅 Побед: {weekly['games_won']}\n"
             
-            # Позиция в недельном топе
             sorted_weekly = sorted(weekly_stats.items(), key=lambda x: x[1]['points'], reverse=True)
             position = next((i+1 for i, (uid, _) in enumerate(sorted_weekly) if uid == user.id), None)
             
@@ -1210,9 +1201,6 @@ async def help_command_callback(update: Update, context: ContextTypes.DEFAULT_TY
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Показывает правила через команду"""
-    user = update.effective_user
-    
-    # Пропускаем проверку подписки для команды помощи
     help_text = """
 🎯 *ПРАВИЛА ИГРЫ:*
 
@@ -1277,18 +1265,15 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Обрабатывает текстовые сообщения"""
     user = update.effective_user
     
-    # Логируем сообщение
     logging.info(f"💬 Сообщение от {user.full_name} (ID: {user.id}): {update.message.text[:50]}...")
     
     user_id = user.id
     text = update.message.text.strip().lower()
     
-    # Если пользователь загадывает слово в свободном режиме
     if user_id in waiting_for_word:
         await process_friend_word_input(update, context, text)
         return
     
-    # Если пользователь отгадывает слово в игре с ботом
     if user_id in user_games:
         await process_guess(update, context, text)
         return
@@ -1305,13 +1290,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def process_friend_word_input(update: Update, context: ContextTypes.DEFAULT_TYPE, word: str):
     """Обрабатывает ввод слова для свободного режима"""
     user_id = update.effective_user.id
-    user_name = update.effective_user.first_name
     
-    # Получаем уровень (всегда 7 для свободного режима)
     level = waiting_for_level.get(user_id, 7)
     level_info = WORD_DATABASE[level]
     
-    # Проверяем слово
     if len(word) < level_info["min_length"] or len(word) > level_info["max_length"]:
         await update.message.reply_text(f"❌ Слово должно быть {level_info['min_length']}-{level_info['max_length']} букв! Твое: {len(word)} букв.")
         return
@@ -1324,41 +1306,37 @@ async def process_friend_word_input(update: Update, context: ContextTypes.DEFAUL
         await update.message.reply_text("❌ Это слово уже было отгадано в другой игре! Выбери другое слово.")
         return
     
-    # Генерируем уникальный ID игры
     game_id = f"free_{user_id}_{int(datetime.now().timestamp())}_{random.randint(1000, 9999)}"
     
-    # Сохраняем ссылку на игру
     game_links[game_id] = {
         'creator_id': user_id,
         'creator_name': update.effective_user.full_name,
         'word': word,
         'level': level,
         'game_type': 'friend',
-        'created_at': datetime.now().isoformat()
+        'created_at': datetime.now().isoformat(),
+        'players': []
     }
     
-    # Сохраняем активную игру
     active_games[game_id] = {
         'creator': user_id,
         'creator_name': update.effective_user.full_name,
         'word': word,
         'level': level,
-        'game_type': 'friend'
+        'game_type': 'friend',
+        'players': []
     }
     
     del waiting_for_word[user_id]
     del waiting_for_level[user_id]
     
-    # Логируем создание игры
     logging.info(f"👥 Создана игра в свободном режиме: {update.effective_user.full_name} - Слово: {word}")
     
-    # Создаем ссылку
     bot_username = (await context.bot.get_me()).username
     share_url = f"https://t.me/{bot_username}?start={game_id}"
     
     save_data()
     
-    # Уведомляем владельца
     await notify_owner(context, f"🎯 *СОЗДАНА ИГРА В СВОБОДНОМ РЕЖИМЕ!*\n\n"
                           f"Создатель: {update.effective_user.full_name}\n"
                           f"ID: `{user_id}`\n"
@@ -1384,6 +1362,30 @@ async def process_friend_word_input(update: Update, context: ContextTypes.DEFAUL
         reply_markup=reply_markup
     )
 
+async def notify_game_creator(game_id: str, winner_id: int, winner_name: str, word: str, attempts: int, context: ContextTypes.DEFAULT_TYPE):
+    """Уведомляет создателя игры, что его слово отгадали"""
+    if game_id in game_links:
+        game_info = game_links[game_id]
+        creator_id = game_info['creator_id']
+        
+        if creator_id != winner_id:  # Не уведомляем, если создатель сам отгадал
+            try:
+                level_name = WORD_DATABASE[game_info['level']]['name'] if game_info['level'] != 7 else "Свободный режим"
+                
+                await context.bot.send_message(
+                    creator_id,
+                    f"🎉 *Твое слово отгадали!*\n\n"
+                    f"👤 Отгадал: {winner_name}\n"
+                    f"📏 Уровень: {level_name}\n"
+                    f"🔤 Слово: *{word.upper()}*\n"
+                    f"📊 Попыток: {attempts}\n\n"
+                    f"*Игра завершена! Ссылка больше не активна.*",
+                    parse_mode='Markdown'
+                )
+                logging.info(f"Уведомление отправлено создателю игры {creator_id}")
+            except Exception as e:
+                logging.error(f"Не удалось отправить уведомление создателю {creator_id}: {e}")
+
 async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, guess: str):
     """Обрабатывает попытку отгадать слово"""
     user_id = update.effective_user.id
@@ -1397,10 +1399,8 @@ async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, gues
     secret_word = game_data['word']
     guess = guess.lower()
     
-    # Логируем попытку
     logging.info(f"🎯 Попытка от {user_name}: {guess} (слово: {secret_word})")
     
-    # Убираем лишние пробелы для сравнения
     guess_clean = guess.strip()
     secret_clean = secret_word.strip()
     
@@ -1412,28 +1412,28 @@ async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, gues
         await update.message.reply_text("❌ Используй только русские буквы и пробелы!")
         return
     
-    # Проверяем совпадения
     result = check_word(secret_clean, guess_clean)
     game_data['guesses'].append((guess_clean, result))
     
     if guess_clean == secret_clean:
-        # Начисляем очки (только для игр с ботом)
         level = game_data['level']
         game_type = game_data.get('game_type', 'bot')
+        game_id = game_data.get('game_id')
         
-        # Обновляем прогресс пользователя
+        # Обновляем прогресс и статистику
         if game_type == 'bot':
             new_word_added = update_user_progress(user_id, level, secret_word)
             points = WORD_DATABASE[level]["points"]
             await update_leaderboard(user_id, user_name, points, game_type)
         else:
-            points = 0
+            points = WORD_DATABASE[level]["points"] if level != 7 else 0
+            if points > 0:
+                await update_leaderboard(user_id, user_name, points, game_type)
             new_word_added = False
         
-        # Собираем статистику игры
         attempts = len(game_data['guesses'])
         secret_word_display = secret_word.upper()
-        if level == 6:  # Легендарный уровень
+        if level == 6:
             secret_word_display += " (два слова)"
         
         response = f"🎉 *ПОЗДРАВЛЯЮ! Ты угадал!*\n\n"
@@ -1443,7 +1443,6 @@ async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, gues
             response += f"📏 Уровень: {WORD_DATABASE[level]['name']}\n"
             response += f"⭐ Твои очки: {points}\n"
             
-            # Проверяем, открылся ли новый уровень
             progress = get_user_progress(user_id)
             if new_word_added:
                 guessed = len(progress['levels'].get(level, []))
@@ -1454,6 +1453,11 @@ async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, gues
                     response += f"Открывается уровень {level + 1}!\n\n"
         else:
             response += f"👥 *Игра с другом*\n"
+            if points > 0:
+                response += f"📏 Уровень: {WORD_DATABASE[level]['name']}\n"
+                response += f"⭐ Твои очки: {points}\n"
+            else:
+                response += f"🎯 Свободный режим (без очков)\n"
         
         response += f"🏆 Слово: *{secret_word_display}*\n"
         response += f"📊 Попыток: {attempts}\n\n"
@@ -1462,13 +1466,24 @@ async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, gues
         for i, (attempt, res) in enumerate(game_data['guesses'], 1):
             response += f"{i}. {attempt.upper()}: {res}\n"
         
-        # Удаляем игру
+        # Удаляем игру из активных
         if user_id in user_games:
             del user_games[user_id]
         
+        # Удаляем активную игру, если это игра с другом
+        if game_id and game_id in active_games:
+            # Уведомляем создателя игры
+            await notify_game_creator(game_id, user_id, user_name, secret_word, attempts, context)
+            
+            # Удаляем игру из активных
+            del active_games[game_id]
+            if game_id in game_links:
+                del game_links[game_id]
+            
+            logging.info(f"Игра {game_id} удалена из активных")
+        
         save_data()
         
-        # Уведомляем владельца об успешной игре
         await notify_owner(context, f"🎉 *ИГРА ЗАВЕРШЕНА УСПЕШНО!*\n\n"
                               f"Игрок: {user_name}\n"
                               f"ID: `{user_id}`\n"
@@ -1501,6 +1516,7 @@ async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, gues
                 secret_word_display += " (два слова)"
             
             game_type = game_data.get('game_type', 'bot')
+            game_id = game_data.get('game_id')
             
             response = f"😔 *Не удалось отгадать...*\n\n"
             
@@ -1515,13 +1531,17 @@ async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, gues
             for i, (attempt, res) in enumerate(game_data['guesses'], 1):
                 response += f"{i}. {attempt.upper()}: {res}\n"
             
-            # Удаляем игру
             if user_id in user_games:
                 del user_games[user_id]
             
+            # Удаляем активную игру, если это игра с другом
+            if game_id and game_id in active_games:
+                del active_games[game_id]
+                if game_id in game_links:
+                    del game_links[game_id]
+            
             save_data()
             
-            # Уведомляем владельца о провале
             await notify_owner(context, f"❌ *ИГРА ПРОИГРАНА!*\n\n"
                                   f"Игрок: {user_name}\n"
                                   f"ID: `{user_id}`\n"
@@ -1546,14 +1566,12 @@ def check_word(secret_word, guess):
     guess_list = list(guess)
     result = ['⬜'] * len(secret_word)
     
-    # Сначала проверяем точные совпадения
     for i in range(len(secret_word)):
         if guess_list[i] == secret[i]:
             result[i] = '🟩'
             secret[i] = None
             guess_list[i] = None
     
-    # Затем проверяем буквы не на своих местах
     for i in range(len(secret_word)):
         if guess_list[i] is not None and guess_list[i] in secret:
             result[i] = '🟨'
@@ -1565,25 +1583,23 @@ async def handle_start_with_params(update: Update, context: ContextTypes.DEFAULT
     """Обработчик старта с параметрами (по ссылке)"""
     user = update.effective_user
     
-    # Логируем переход по ссылке
     logging.info(f"🔗 Переход по ссылке от {user.full_name} (ID: {user.id})")
-    
-    # ВАЖНО: пропускаем проверку подписки для перехода по ссылке!
-    # Любой должен иметь возможность перейти по ссылке от друга
     
     if context.args:
         game_id = context.args[0]
         
-        # Проверяем, есть ли такая игра
+        # ПРОВЕРЯЕМ ПОДПИСКУ ДЛЯ ИГРОКОВ ПО ССЫЛКЕ
+        if not await check_subscription(user.id, context):
+            await show_subscription_required(update, context)
+            return
+        
         if game_id in game_links:
             game_info = game_links[game_id]
             creator_id = game_info['creator_id']
             creator_name = game_info.get('creator_name', 'Неизвестный')
             
-            # Логируем подключение к игре
             logging.info(f"🎮 Подключение к игре: {user.full_name} -> игра от {creator_name} (ID: {creator_id})")
             
-            # Уведомляем владельца о подключении
             await notify_owner(context, f"🔗 *ПОДКЛЮЧЕНИЕ К ИГРЕ!*\n\n"
                                   f"Игрок: {user.full_name}\n"
                                   f"ID: `{user.id}`\n"
@@ -1591,7 +1607,6 @@ async def handle_start_with_params(update: Update, context: ContextTypes.DEFAULT
                                   f"Слово: ||{game_info['word']}||\n"
                                   f"Время: {datetime.now().strftime('%d.%m.%Y %H:%M')}")
             
-            # Проверяем, не пытается ли создатель отгадать свое слово
             if user.id == creator_id:
                 keyboard = [[InlineKeyboardButton("🎮 Загадать новое слово", callback_data="play_with_friend")]]
                 reply_markup = InlineKeyboardMarkup(keyboard)
@@ -1604,7 +1619,6 @@ async def handle_start_with_params(update: Update, context: ContextTypes.DEFAULT
                 )
                 return
             
-            # Проверяем, не отгадано ли уже слово
             if game_id not in active_games:
                 keyboard = [[InlineKeyboardButton("🔙 Главное меню", callback_data="back_to_main")]]
                 reply_markup = InlineKeyboardMarkup(keyboard)
@@ -1616,7 +1630,6 @@ async def handle_start_with_params(update: Update, context: ContextTypes.DEFAULT
                 )
                 return
             
-            # Создаем игру для отгадывающего
             secret_word = game_info['word']
             level = game_info['level']
             game_type = game_info['game_type']
@@ -1629,13 +1642,11 @@ async def handle_start_with_params(update: Update, context: ContextTypes.DEFAULT
                 'game_id': game_id
             }
             
-            # Определяем тип игры
             if game_type == 'bot':
                 game_type_text = "🤖 Бот загадал слово"
             else:
                 game_type_text = "👥 Друг загадал слово"
             
-            # Особое сообщение для легендарного уровня
             if level == 6:
                 level_message = (
                     f"{game_type_text}\n\n"
@@ -1676,17 +1687,14 @@ async def handle_start_with_params(update: Update, context: ContextTypes.DEFAULT
             )
             return
     
-    # Если нет параметров, просто запускаем обычный /start
     await start(update, context)
 
 def calculate_next_sunday_15_00():
     """Вычисляет время следующего воскресенья 15:00"""
     now = datetime.now()
     
-    # Дней до следующего воскресенья (0 = понедельник, 6 = воскресенье)
     days_until_sunday = (6 - now.weekday()) % 7
     if days_until_sunday == 0 and now.hour >= 15:
-        # Если сегодня воскресенье и уже после 15:00, берем следующее воскресенье
         days_until_sunday = 7
     
     next_sunday = now + timedelta(days=days_until_sunday)
@@ -1707,45 +1715,34 @@ async def handle_locked(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     """Главная функция запуска бота"""
-    # Загружаем данные при запуске
     load_data()
     
-    # Создаем приложение с JobQueue
     application = Application.builder().token(BOT_TOKEN).build()
     
-    # Настраиваем планировщик задач
     job_queue = application.job_queue
     
     if job_queue:
-        # Вычисляем время следующего воскресенья 15:00
         next_reset = calculate_next_sunday_15_00()
         delay = (next_reset - datetime.now()).total_seconds()
         
         if delay < 0:
             delay = 0
         
-        # Запускаем первый сброс в нужное время
         job_queue.run_once(reset_weekly_stats, delay)
-        
-        # Затем каждую неделю
         job_queue.run_repeating(reset_weekly_stats, interval=604800, first=delay)
         
         logging.info(f"Планировщик задач настроен. Следующий сброс через {delay/3600:.1f} часов")
     else:
         logging.warning("JobQueue не доступен. Автоматический сброс статистики не будет работать!")
     
-    # Регистрируем обработчики команд
     application.add_handler(CommandHandler("start", handle_start_with_params))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("leaderboard", show_leaderboard))
     application.add_handler(CommandHandler("stats", show_my_stats))
     application.add_handler(CommandHandler("reset_weekly", manual_weekly_reset_command))
     
-    # Обработчики сообщений и callback-ов
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(CallbackQueryHandler(handle_callback_query))
-    
-    # Добавляем обработчик для заблокированных кнопок
     application.add_handler(CallbackQueryHandler(handle_locked, pattern="^locked$"))
     
     print("🎮 Игровой бот запущен!")
@@ -1756,8 +1753,7 @@ def main():
     print(f"🎯 Система прогресса: нужно отгадать все слова на уровне для открытия следующего!")
     print(f"📝 Логи сохраняются в файл: bot_activity.log")
     print(f"🔔 Уведомления владельца включены!")
-    print(f"⚠️ Проверка подписки: если канал недоступен, проверка пропускается")
-    print(f"🔗 Переход по ссылке: работает без проверки подписки")
+    print(f"⚠️ Проверка подписки: РАБОТАЕТ ДЛЯ ВСЕХ ИГРОКОВ (включая переход по ссылке)")
     print(f"🔄 Сброс статистики: каждое воскресенье 15:00 МСК")
     print(f"⚙️  Ручной сброс: /reset_weekly (только для владельца)")
     print(f"📁 Данные сохраняются в папке: {DATA_FOLDER}/")
