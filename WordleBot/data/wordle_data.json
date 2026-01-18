@@ -1,0 +1,114 @@
+{
+  "user_games": {
+    "1307172745": {
+      "word": "брат",
+      "guesses": [],
+      "level": 1,
+      "game_type": "bot",
+      "start_time": "2026-01-18T20:09:40.794397"
+    },
+    "8064767053": {
+      "word": "война",
+      "guesses": [],
+      "level": 1,
+      "game_type": "bot",
+      "start_time": "2026-01-18T21:19:13.575083"
+    }
+  },
+  "waiting_for_word": {},
+  "waiting_for_level": {},
+  "used_words": [],
+  "game_links": {
+    "game_1307172745_1768733654_1117": {
+      "creator_id": 1307172745,
+      "word": "како",
+      "level": 1,
+      "created_at": "2026-01-18T17:54:14.437709"
+    },
+    "friend_1307172745_1768741886_3248": {
+      "creator_id": 1307172745,
+      "word": "метеорологический",
+      "level": 5,
+      "game_type": "friend",
+      "created_at": "2026-01-18T20:11:26.247471"
+    },
+    "free_8064767053_1768743555_9907": {
+      "creator_id": 8064767053,
+      "word": "пидарас",
+      "level": 7,
+      "game_type": "friend",
+      "created_at": "2026-01-18T20:39:15.813153"
+    },
+    "free_1307172745_1768746002_3420": {
+      "creator_id": 1307172745,
+      "creator_name": "Wezzek",
+      "word": "жаным",
+      "level": 7,
+      "game_type": "friend",
+      "created_at": "2026-01-18T21:20:02.002062"
+    }
+  },
+  "leaderboard": {
+    "1307172745": {
+      "total_points": 510,
+      "total_wins": 1,
+      "name": "Wezzek",
+      "bot_wins": 1,
+      "friend_wins": 0
+    }
+  },
+  "weekly_stats": {},
+  "user_stats": {
+    "1307172745": {
+      "name": "Wezzek",
+      "games_played": 1,
+      "games_won": 1,
+      "total_points": 10,
+      "best_level": 0,
+      "bot_games": 1,
+      "friend_games": 0,
+      "last_played": "2026-01-18T18:17:48.875507"
+    }
+  },
+  "active_games": {
+    "game_1307172745_1768733654_1117": {
+      "creator": 1307172745,
+      "word": "како",
+      "level": 1
+    },
+    "friend_1307172745_1768741886_3248": {
+      "creator": 1307172745,
+      "word": "метеорологический",
+      "level": 5,
+      "game_type": "friend"
+    },
+    "free_8064767053_1768743555_9907": {
+      "creator": 8064767053,
+      "word": "пидарас",
+      "level": 7,
+      "game_type": "friend"
+    },
+    "free_1307172745_1768746002_3420": {
+      "creator": 1307172745,
+      "creator_name": "Wezzek",
+      "word": "жаным",
+      "level": 7,
+      "game_type": "friend"
+    }
+  },
+  "user_progress": {
+    "8064767053": {
+      "max_level": 1,
+      "total_words": 0,
+      "levels": {
+        "1": []
+      }
+    },
+    "1307172745": {
+      "max_level": 1,
+      "total_words": 0,
+      "levels": {}
+    }
+  },
+  "last_save": "2026-01-18T21:20:02.097798"
+}

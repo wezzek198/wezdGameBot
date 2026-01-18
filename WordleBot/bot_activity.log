@@ -1,0 +1,539 @@
+2026-01-18 20:58:38,648 - root - INFO - ✅ Данные загружены: 1 пользователей, 1 статистик
+2026-01-18 20:58:39,100 - root - WARNING - JobQueue не доступен. Автоматический сброс статистики не будет работать!
+2026-01-18 20:58:39,579 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getMe "HTTP/1.1 200 OK"
+2026-01-18 20:58:39,667 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/deleteWebhook "HTTP/1.1 200 OK"
+2026-01-18 20:58:39,668 - telegram.ext.Application - INFO - Application started
+2026-01-18 20:58:40,044 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 409 Conflict"
+2026-01-18 20:58:40,045 - telegram.ext.Application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 134, in network_retry_loop
+    await do_action()
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 127, in do_action
+    action_cb_task.result()
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_extbot.py", line 676, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\_bot.py", line 4780, in get_updates
+    await self._post(
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\request\_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-01-18 20:58:45,179 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 20:58:45,180 - root - INFO - 🔗 Переход по ссылке от Wezzek (ID: 1307172745)
+2026-01-18 20:58:45,475 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 20:58:45,475 - root - ERROR - Ошибка проверки подписки: Member list is inaccessible
+2026-01-18 20:58:45,476 - root - INFO - 🚀 /start от Wezzek (ID: 1307172745, Username: @wezdk)
+2026-01-18 20:58:45,620 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 20:58:45,621 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: Wezzek
+ID: `13071727...
+2026-01-18 20:58:45,723 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 20:58:45,723 - root - ERROR - Ошибка проверки подписки: Member list is inaccessible
+2026-01-18 20:58:45,724 - telegram.ext.Application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_application.py", line 1315, in process_update
+    await coroutine
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_handlers\basehandler.py", line 159, in handle_update
+    return await self.callback(update, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AORUS\Desktop\WordleBot\wordle.py", line 1649, in handle_start_with_params
+    await start(update, context)
+  File "C:\Users\AORUS\Desktop\WordleBot\wordle.py", line 536, in start
+    await update.callback_query.edit_message_text(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'edit_message_text'
+2026-01-18 20:58:47,944 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 20:58:47,945 - root - INFO - 🔗 Переход по ссылке от Wezzek (ID: 1307172745)
+2026-01-18 20:58:48,043 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 20:58:48,043 - root - ERROR - Ошибка проверки подписки: Member list is inaccessible
+2026-01-18 20:58:48,044 - root - INFO - 🚀 /start от Wezzek (ID: 1307172745, Username: @wezdk)
+2026-01-18 20:58:48,172 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 20:58:48,173 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: Wezzek
+ID: `13071727...
+2026-01-18 20:58:48,282 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 20:58:48,284 - root - ERROR - Ошибка проверки подписки: Member list is inaccessible
+2026-01-18 20:58:48,284 - telegram.ext.Application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_application.py", line 1315, in process_update
+    await coroutine
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_handlers\basehandler.py", line 159, in handle_update
+    return await self.callback(update, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AORUS\Desktop\WordleBot\wordle.py", line 1649, in handle_start_with_params
+    await start(update, context)
+  File "C:\Users\AORUS\Desktop\WordleBot\wordle.py", line 536, in start
+    await update.callback_query.edit_message_text(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'edit_message_text'
+2026-01-18 20:58:50,504 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 20:58:51,015 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 20:58:51,016 - root - INFO - 🔘 Кнопка back_to_main от Wezzek (ID: 1307172745)
+2026-01-18 20:58:51,016 - root - INFO - 🚀 /start от Wezzek (ID: 1307172745, Username: @wezdk)
+2026-01-18 20:58:51,425 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 20:58:51,425 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: Wezzek
+ID: `13071727...
+2026-01-18 20:58:51,524 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 20:58:51,525 - root - ERROR - Ошибка проверки подписки: Member list is inaccessible
+2026-01-18 20:58:51,801 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 20:59:00,644 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 20:59:11,216 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 20:59:19,827 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 20:59:19,828 - root - INFO - 🔗 Переход по ссылке от wezzek baby (ID: 8064767053)
+2026-01-18 20:59:20,111 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 20:59:20,112 - root - ERROR - Ошибка проверки подписки: Member list is inaccessible
+2026-01-18 20:59:20,112 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 20:59:20,223 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 20:59:20,224 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 20:59:20,312 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 20:59:20,312 - root - ERROR - Ошибка проверки подписки: Member list is inaccessible
+2026-01-18 20:59:20,313 - telegram.ext.Application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_application.py", line 1315, in process_update
+    await coroutine
+  File "C:\Users\AORUS\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_handlers\basehandler.py", line 159, in handle_update
+    return await self.callback(update, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AORUS\Desktop\WordleBot\wordle.py", line 1649, in handle_start_with_params
+    await start(update, context)
+  File "C:\Users\AORUS\Desktop\WordleBot\wordle.py", line 536, in start
+    await update.callback_query.edit_message_text(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'edit_message_text'
+2026-01-18 20:59:29,994 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 20:59:40,079 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:14:22,536 - root - INFO - ✅ Данные загружены: 1 пользователей, 1 статистик
+2026-01-18 21:14:22,987 - root - WARNING - JobQueue не доступен. Автоматический сброс статистики не будет работать!
+2026-01-18 21:14:23,378 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getMe "HTTP/1.1 200 OK"
+2026-01-18 21:14:23,462 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/deleteWebhook "HTTP/1.1 200 OK"
+2026-01-18 21:14:23,464 - telegram.ext.Application - INFO - Application started
+2026-01-18 21:14:30,029 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:14:30,029 - root - INFO - 🔗 Переход по ссылке от Wezzek (ID: 1307172745)
+2026-01-18 21:14:30,030 - root - INFO - 🚀 /start от Wezzek (ID: 1307172745, Username: @wezdk)
+2026-01-18 21:14:30,319 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:14:30,321 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: Wezzek
+ID: `13071727...
+2026-01-18 21:14:30,510 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:14:30,512 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:14:30,598 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 21:14:30,598 - root - WARNING - Пользователь 1307172745 не подписан на канал или ошибка проверки: Member list is inaccessible
+2026-01-18 21:14:30,711 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:14:34,575 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:14:34,677 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:14:34,677 - root - INFO - 🔘 Кнопка check_subscription от Wezzek (ID: 1307172745)
+2026-01-18 21:14:34,767 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:14:34,768 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:14:34,849 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 21:14:34,849 - root - WARNING - Пользователь 1307172745 не подписан на канал или ошибка проверки: Member list is inaccessible
+2026-01-18 21:14:34,952 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:14:36,059 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:14:36,159 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:14:36,159 - root - INFO - 🔘 Кнопка check_subscription от Wezzek (ID: 1307172745)
+2026-01-18 21:14:36,788 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:14:36,789 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:14:36,873 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 21:14:36,874 - root - WARNING - Пользователь 1307172745 не подписан на канал или ошибка проверки: Member list is inaccessible
+2026-01-18 21:14:36,971 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 400 Bad Request"
+2026-01-18 21:14:36,973 - root - ERROR - Ошибка при проверке подписки: Message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message
+2026-01-18 21:14:37,080 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:14:46,198 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:14:56,858 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:15:05,151 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:15:05,152 - root - INFO - 🔗 Переход по ссылке от wezzek baby (ID: 8064767053)
+2026-01-18 21:15:05,152 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:15:05,466 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:15:05,466 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:15:05,556 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:15:05,557 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:15:05,643 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 21:15:05,644 - root - WARNING - Пользователь 8064767053 не подписан на канал или ошибка проверки: Member list is inaccessible
+2026-01-18 21:15:06,452 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:15:09,038 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:15:09,131 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:15:09,132 - root - INFO - 🔘 Кнопка check_subscription от wezzek baby (ID: 8064767053)
+2026-01-18 21:15:09,215 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:15:09,216 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:15:09,311 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 21:15:09,312 - root - WARNING - Пользователь 8064767053 не подписан на канал или ошибка проверки: Member list is inaccessible
+2026-01-18 21:15:09,438 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:15:10,784 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:15:11,296 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:15:11,296 - root - INFO - 🔘 Кнопка check_subscription от wezzek baby (ID: 8064767053)
+2026-01-18 21:15:11,383 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:15:11,384 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:15:11,467 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 400 Bad Request"
+2026-01-18 21:15:11,468 - root - WARNING - Пользователь 8064767053 не подписан на канал или ошибка проверки: Member list is inaccessible
+2026-01-18 21:15:11,634 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 400 Bad Request"
+2026-01-18 21:15:11,635 - root - ERROR - Ошибка при проверке подписки: Message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message
+2026-01-18 21:15:11,986 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:15:20,994 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:15:31,534 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:15:41,709 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:15:51,948 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:16:02,044 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:21,309 - root - INFO - ✅ Данные загружены: 1 пользователей, 1 статистик
+2026-01-18 21:18:21,761 - root - WARNING - JobQueue не доступен. Автоматический сброс статистики не будет работать!
+2026-01-18 21:18:22,351 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getMe "HTTP/1.1 200 OK"
+2026-01-18 21:18:22,435 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/deleteWebhook "HTTP/1.1 200 OK"
+2026-01-18 21:18:22,436 - telegram.ext.Application - INFO - Application started
+2026-01-18 21:18:22,735 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:32,832 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:43,164 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:44,654 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:44,655 - root - INFO - 🔗 Переход по ссылке от wezzek baby (ID: 8064767053)
+2026-01-18 21:18:44,658 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:18:44,950 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:18:44,951 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:18:45,072 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:18:45,073 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:18:45,171 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:18:45,172 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:18:45,412 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:18:51,281 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:52,355 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:52,356 - root - INFO - 🔗 Переход по ссылке от wezzek baby (ID: 8064767053)
+2026-01-18 21:18:52,357 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:18:52,662 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:18:52,664 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:18:52,785 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:18:52,786 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:18:52,888 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:18:52,888 - root - INFO - Статус пользователя 8064767053 в канале: left, подписан: False
+2026-01-18 21:18:53,441 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:18:54,650 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:56,086 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:56,476 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:18:56,477 - root - INFO - 🔘 Кнопка check_subscription от wezzek baby (ID: 8064767053)
+2026-01-18 21:18:56,566 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:18:56,568 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:18:56,813 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:18:56,814 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:18:57,104 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:18:58,499 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:18:58,500 - root - INFO - 🔗 Переход по ссылке от wezzek baby (ID: 8064767053)
+2026-01-18 21:18:58,502 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:18:59,242 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:18:59,244 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:18:59,334 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:18:59,335 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:18:59,438 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:18:59,438 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:18:59,569 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:01,300 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:01,618 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:01,618 - root - INFO - 🔘 Кнопка my_stats от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:01,899 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:02,521 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:02,667 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:02,668 - root - INFO - 🔘 Кнопка back_to_main от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:02,670 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:19:02,823 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:02,824 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:19:02,927 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:19:02,928 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:19:03,033 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:19:03,034 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:19:03,488 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:03,596 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:03,698 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:03,700 - root - INFO - 🔘 Кнопка back_to_main от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:03,701 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:19:03,817 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:03,818 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:19:03,915 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:19:03,916 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:19:04,026 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:19:04,027 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:19:04,140 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 400 Bad Request"
+2026-01-18 21:19:04,141 - root - ERROR - Ошибка в функции start: Message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message
+2026-01-18 21:19:04,141 - root - ERROR - Ошибка в обработке callback_query: 'NoneType' object has no attribute 'reply_text'
+2026-01-18 21:19:04,296 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:04,411 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:04,506 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:04,507 - root - INFO - 🔘 Кнопка help от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:04,635 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:05,896 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:06,078 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:06,078 - root - INFO - 🔘 Кнопка back_to_main от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:06,079 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:19:06,531 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:06,532 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:19:06,634 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:19:06,635 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:19:06,750 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:19:06,751 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:19:07,126 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:08,662 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:08,769 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:08,770 - root - INFO - 🔘 Кнопка play_with_bot от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:08,884 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:13,332 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:13,440 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:13,442 - root - INFO - 🔘 Кнопка bot_level_1 от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:13,443 - root - INFO - 🎮 Начата игра: wezzek baby (ID: 8064767053) - Уровень 1: война
+2026-01-18 21:19:13,572 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:13,573 - root - INFO - Уведомление отправлено владельцу: 🎮 *НОВАЯ ИГРА НАЧАТА!*
+
+Игрок: wezzek baby
+ID: `80...
+2026-01-18 21:19:13,988 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:15,933 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:15,934 - root - INFO - 🔗 Переход по ссылке от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:15,937 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:19:16,136 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:16,137 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:19:16,686 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:19:16,687 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:19:16,802 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:19:16,803 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:19:16,975 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:18,580 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:18,692 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:18,693 - root - INFO - 🔘 Кнопка help от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:19,195 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:20,331 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:20,436 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:20,437 - root - INFO - 🔘 Кнопка back_to_main от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:20,438 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:19:20,576 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:20,578 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:19:20,671 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:19:20,672 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:19:20,782 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:19:20,784 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:19:21,134 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:23,204 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:23,306 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:23,307 - root - INFO - 🔘 Кнопка my_stats от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:23,423 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:25,559 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:25,663 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:25,664 - root - INFO - 🔘 Кнопка back_to_main от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:25,667 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:19:25,806 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:25,807 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:19:25,902 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:19:25,903 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:19:26,026 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:19:26,028 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:19:26,160 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:27,103 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:27,224 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:27,224 - root - INFO - 🔘 Кнопка leaderboard от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:27,347 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:29,450 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:30,068 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:30,069 - root - INFO - 🔘 Кнопка back_to_main от wezzek baby (ID: 8064767053)
+2026-01-18 21:19:30,070 - root - INFO - 🚀 /start от wezzek baby (ID: 8064767053, Username: @wezzekq)
+2026-01-18 21:19:30,327 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:30,328 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: wezzek baby
+ID: `806...
+2026-01-18 21:19:30,478 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:19:30,479 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:19:30,839 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:19:30,840 - root - INFO - Статус пользователя 8064767053 в канале: member, подписан: True
+2026-01-18 21:19:31,562 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:39,764 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:49,864 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:51,805 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:51,806 - root - INFO - 🔗 Переход по ссылке от Wezzek (ID: 1307172745)
+2026-01-18 21:19:51,806 - root - INFO - 🚀 /start от Wezzek (ID: 1307172745, Username: @wezdk)
+2026-01-18 21:19:52,124 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:52,125 - root - INFO - Уведомление отправлено владельцу: 👤 *НОВЫЙ ПОЛЬЗОВАТЕЛЬ!*
+
+Имя: Wezzek
+ID: `13071727...
+2026-01-18 21:19:52,220 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChat "HTTP/1.1 200 OK"
+2026-01-18 21:19:52,220 - root - INFO - Канал найден: wezdgame [Слова]
+2026-01-18 21:19:52,325 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getChatMember "HTTP/1.1 200 OK"
+2026-01-18 21:19:52,326 - root - INFO - Статус пользователя 1307172745 в канале: creator, подписан: True
+2026-01-18 21:19:52,837 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:19:54,360 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:54,717 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:54,717 - root - INFO - 🔘 Кнопка play_with_friend от Wezzek (ID: 1307172745)
+2026-01-18 21:19:54,832 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:19:57,535 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:19:57,639 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-01-18 21:19:57,639 - root - INFO - 🔘 Кнопка friend_level_7 от Wezzek (ID: 1307172745)
+2026-01-18 21:19:57,749 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/editMessageText "HTTP/1.1 200 OK"
+2026-01-18 21:20:02,001 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:20:02,001 - root - INFO - 💬 Сообщение от Wezzek (ID: 1307172745): Жаным...
+2026-01-18 21:20:02,002 - root - INFO - 👥 Создана игра в свободном режиме: Wezzek - Слово: жаным
+2026-01-18 21:20:02,097 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getMe "HTTP/1.1 200 OK"
+2026-01-18 21:20:02,214 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:20:02,215 - root - INFO - Уведомление отправлено владельцу: 🎯 *СОЗДАНА ИГРА В СВОБОДНОМ РЕЖИМЕ!*
+
+Создатель: W...
+2026-01-18 21:20:02,336 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:20:12,114 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:20:22,698 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:20:32,806 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:20:43,383 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:20:53,726 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:21:03,828 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:21:13,926 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:21:24,020 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:21:34,115 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:21:44,273 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:21:54,371 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:22:04,478 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:22:14,578 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:22:24,679 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:22:29,672 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:22:31,506 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:22:41,958 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:22:43,004 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:22:43,586 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:22:53,640 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:23:03,923 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:23:14,021 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:23:24,135 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:23:34,272 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:23:37,826 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:23:48,111 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:23:58,225 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:24:08,591 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:24:18,969 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:24:29,643 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:24:34,078 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:24:34,079 - root - INFO - 🔗 Переход по ссылке от Häzardᵐᵗᶜʰ (ID: 7220504303)
+2026-01-18 21:24:34,079 - root - INFO - 🎮 Подключение к игре: Häzardᵐᵗᶜʰ -> игра от Wezzek (ID: 1307172745)
+2026-01-18 21:24:34,443 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:24:34,443 - root - INFO - Уведомление отправлено владельцу: 🔗 *ПОДКЛЮЧЕНИЕ К ИГРЕ!*
+
+Игрок: Häzardᵐᵗᶜʰ
+ID: `72...
+2026-01-18 21:24:34,559 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:24:44,172 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:24:52,789 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:24:52,789 - root - INFO - 💬 Сообщение от Häzardᵐᵗᶜʰ (ID: 7220504303): пирог...
+2026-01-18 21:24:52,789 - root - INFO - 🎯 Попытка от Häzardᵐᵗᶜʰ: пирог (слово: жаным)
+2026-01-18 21:24:53,112 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:25:03,048 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:25:13,305 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:25:15,458 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:25:15,459 - root - INFO - 💬 Сообщение от Häzardᵐᵗᶜʰ (ID: 7220504303): шторм...
+2026-01-18 21:25:15,460 - root - INFO - 🎯 Попытка от Häzardᵐᵗᶜʰ: шторм (слово: жаным)
+2026-01-18 21:25:15,794 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:25:23,729 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:25:23,731 - root - INFO - 💬 Сообщение от Häzardᵐᵗᶜʰ (ID: 7220504303): океан...
+2026-01-18 21:25:23,736 - root - INFO - 🎯 Попытка от Häzardᵐᵗᶜʰ: океан (слово: жаным)
+2026-01-18 21:25:24,071 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:25:34,095 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:25:44,438 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:25:47,203 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:25:47,204 - root - INFO - 💬 Сообщение от Häzardᵐᵗᶜʰ (ID: 7220504303): вумен...
+2026-01-18 21:25:47,205 - root - INFO - 🎯 Попытка от Häzardᵐᵗᶜʰ: вумен (слово: жаным)
+2026-01-18 21:25:47,562 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:25:57,340 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:26:07,680 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:26:17,799 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:26:18,988 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:26:18,990 - root - INFO - 💬 Сообщение от Häzardᵐᵗᶜʰ (ID: 7220504303): замок...
+2026-01-18 21:26:18,995 - root - INFO - 🎯 Попытка от Häzardᵐᵗᶜʰ: замок (слово: жаным)
+2026-01-18 21:26:19,400 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:26:29,125 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:26:39,324 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:26:49,733 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:26:59,828 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:27:09,927 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:27:20,032 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:27:30,228 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:27:40,330 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:27:50,701 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:28:00,942 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:28:11,281 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:28:21,381 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:28:31,579 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:28:32,783 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:28:32,783 - root - INFO - 💬 Сообщение от Häzardᵐᵗᶜʰ (ID: 7220504303): рамка...
+2026-01-18 21:28:32,784 - root - INFO - 🎯 Попытка от Häzardᵐᵗᶜʰ: рамка (слово: жаным)
+2026-01-18 21:28:33,090 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/sendMessage "HTTP/1.1 200 OK"
+2026-01-18 21:28:42,880 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:28:53,061 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:29:03,573 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:29:13,849 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:29:23,941 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:29:34,038 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:29:44,141 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:29:54,407 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:30:04,601 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:30:14,697 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:30:25,423 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:30:35,689 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:30:45,806 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:30:56,169 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:31:06,699 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:31:17,370 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:31:27,465 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:31:38,003 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:31:48,092 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:34:45,112 - root - INFO - ✅ Данные загружены: 1 пользователей, 1 статистик
+2026-01-18 21:34:45,571 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-01-18 21:34:45,572 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-01-18 21:34:45,572 - root - INFO - Планировщик задач настроен. Следующий сброс через 161.4 часов
+2026-01-18 21:34:46,235 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getMe "HTTP/1.1 200 OK"
+2026-01-18 21:34:46,327 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/deleteWebhook "HTTP/1.1 200 OK"
+2026-01-18 21:34:46,328 - apscheduler.scheduler - INFO - Added job "reset_weekly_stats" to job store "default"
+2026-01-18 21:34:46,328 - apscheduler.scheduler - INFO - Added job "reset_weekly_stats" to job store "default"
+2026-01-18 21:34:46,328 - apscheduler.scheduler - INFO - Scheduler started
+2026-01-18 21:34:46,329 - telegram.ext.Application - INFO - Application started
+2026-01-18 21:34:56,912 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:35:07,023 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
+2026-01-18 21:35:17,120 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8162816230:AAGIbps46xBe9yt9WzlZ3etzcXtNwSmWgJM/getUpdates "HTTP/1.1 200 OK"
