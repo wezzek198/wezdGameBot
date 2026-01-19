@@ -144,6 +144,135 @@ user_stats = {}
 active_games = {}  # {game_id: {'creator': X, 'word': 'word', 'level': Z, 'game_type': 'bot' или 'friend', 'players': [user_ids]}}
 user_progress = {}  # {user_id: {level: [отгаданные_слова], 'max_level': X, 'total_words': Y}}
 
+# ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ ПРОВЕРКИ СЛОВ
+
+def has_reasonable_vowel_consonant_ratio(word):
+    """Проверяет разумное соотношение гласных и согласных в слове"""
+    vowels = set('аеёиоуыэюя')
+    word_lower = word.lower()
+    
+    vowel_count = sum(1 for char in word_lower if char in vowels)
+    consonant_count = len(word_lower) - vowel_count
+    
+    # Для слов от 3 до 6 букв должно быть хотя бы 1-2 гласные
+    # Для слов от 7 букв и больше - хотя бы 2-3 гласные
+    if len(word_lower) <= 6:
+        return vowel_count >= 1
+    else:
+        return vowel_count >= 2
+
+def has_too_many_repeated_chars(word):
+    """Проверяет, нет ли слишком много повторяющихся символов подряд"""
+    word_lower = word.lower()
+    
+    # Проверяем повторение 4 и более одинаковых букв подряд
+    max_repeat = 0
+    current_repeat = 1
+    prev_char = ''
+    
+    for char in word_lower:
+        if char == prev_char:
+            current_repeat += 1
+            max_repeat = max(max_repeat, current_repeat)
+        else:
+            current_repeat = 1
+        prev_char = char
+    
+    return max_repeat >= 4
+
+def contains_uncommon_combinations(word):
+    """Проверяет наличие необычных или невозможных сочетаний букв"""
+    word_lower = word.lower()
+    
+    # Невозможные или крайне редкие сочетания в русском языке
+    impossible_combinations = [
+        'ыь', 'ыъ', 'ыы', 'эы', 'юы', 'яы', 'ёы',  # Ы после гласных (кроме и)
+        'ьь', 'ъъ', 'ьъ', 'ъь',  # Двойные мягкие/твердые знаки
+        'аь', 'оь', 'уь', 'эь', 'ыь', 'яь', 'ёь', 'юь', 'еь', 'иь',  # Мягкий знак после гласных
+        'йй', 'щщ', 'ъъ',  # Двойные й, щ, твердый знак
+    ]
+    
+    for combo in impossible_combinations:
+        if combo in word_lower:
+            return True
+    
+    # Проверяем на слишком много согласных подряд (больше 4 для коротких слов, больше 5 для длинных)
+    vowels = set('аеёиоуыэюя')
+    max_consonants_in_row = 0
+    current_consonants = 0
+    
+    for char in word_lower:
+        if char not in vowels and char not in 'ьъ':
+            current_consonants += 1
+            max_consonants_in_row = max(max_consonants_in_row, current_consonants)
+        else:
+            current_consonants = 0
+    
+    # Для слов до 10 букв - не больше 4 согласных подряд
+    # Для слов больше 10 букв - не больше 5 согласных подряд
+    if len(word_lower) <= 10:
+        return max_consonants_in_row > 4
+    else:
+        return max_consonants_in_row > 5
+
+def is_random_gibberish(word):
+    """Проверяет, является ли слово случайным набором букв"""
+    word_lower = word.lower()
+    
+    # Проверяем отсутствие гласных
+    vowels = set('аеёиоуыэюя')
+    if not any(char in vowels for char in word_lower):
+        return True
+    
+    # Проверяем на повторяющиеся паттерны типа "ааааа" или "ввввв"
+    if has_too_many_repeated_chars(word_lower):
+        return True
+    
+    # Проверяем на нереальные сочетания букв
+    if contains_uncommon_combinations(word_lower):
+        return True
+    
+    # Проверяем соотношение гласных/согласных
+    if not has_reasonable_vowel_consonant_ratio(word_lower):
+        return True
+    
+    # Проверяем, нет ли слишком много редких букв
+    rare_letters = set('фщэъ')
+    rare_count = sum(1 for char in word_lower if char in rare_letters)
+    if rare_count > len(word_lower) * 0.3:  # Больше 30% редких букв
+        return True
+    
+    return False
+
+def is_valid_russian_word(word):
+    """Проверяет, является ли слово валидным русским словом"""
+    if not word:
+        return False
+    
+    # Проверяем длину
+    if len(word) < 3 or len(word) > 30:
+        return False
+    
+    # Проверяем русские буквы и пробелы
+    if not re.match('^[а-яё ]+$', word.lower()):
+        return False
+    
+    # Проверяем, не является ли словом случайный набор букв
+    if is_random_gibberish(word.lower()):
+        return False
+    
+    # Дополнительная проверка для слов с пробелами (составных слов)
+    if ' ' in word:
+        parts = word.split()
+        # Проверяем каждую часть отдельно
+        for part in parts:
+            if len(part) < 2:  # Каждая часть должна быть хотя бы 2 буквы
+                return False
+            if is_random_gibberish(part.lower()):
+                return False
+    
+    return True
+
 async def notify_owner(context: ContextTypes.DEFAULT_TYPE, message: str):
     """Отправляет уведомление владельцу"""
     try:
@@ -1298,8 +1427,16 @@ async def process_friend_word_input(update: Update, context: ContextTypes.DEFAUL
         await update.message.reply_text(f"❌ Слово должно быть {level_info['min_length']}-{level_info['max_length']} букв! Твое: {len(word)} букв.")
         return
     
-    if not re.match('^[а-яё ]+$', word):
-        await update.message.reply_text("❌ Используй только русские буквы и пробелы!")
+    # Проверяем, что слово валидное русское слово, а не случайный набор букв
+    if not is_valid_russian_word(word):
+        await update.message.reply_text(
+            "❌ *Это не похоже на настоящее русское слово!*\n\n"
+            "Пожалуйста, введи настоящее слово:\n"
+            "• Должно быть хотя бы 1-2 гласные буквы\n"
+            "• Нельзя повторять одну букву 4 раза подряд\n"
+            "• Должно быть реалистичное сочетание букв\n"
+            "• Примеры правильных слов: 'кот', 'дом', 'солнце'"
+        )
         return
     
     if word in used_words:
@@ -1408,9 +1545,76 @@ async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, gues
         await update.message.reply_text(f"❌ Слово должно содержать {len(secret_clean)} букв! Твое: {len(guess_clean)} букв.")
         return
     
-    if not re.match('^[а-яё ]+$', guess_clean):
-        await update.message.reply_text("❌ Используй только русские буквы и пробелы!")
-        return
+    # ПРОВЕРКА НА ОСМЫСЛЕННОСТЬ СЛОВА
+    if not is_valid_russian_word(guess_clean):
+        attempts = len(game_data['guesses'])
+        if attempts < 3:  # Сначала даем подсказку
+            await update.message.reply_text(
+                "⚠️ *Это не похоже на настоящее русское слово!*\n\n"
+                "Советы:\n"
+                "• Используй настоящие слова, а не случайные буквы\n"
+                "• В слове должны быть гласные буквы\n"
+                "• Не повторяй одну букву много раз подряд\n"
+                "• Попробуй слова: 'стол', 'книга', 'солнце' и т.д.\n\n"
+                f"Попытка {attempts + 1} из 10"
+            )
+            return
+        else:  # После 3 попыток начинаем считать
+            game_data['guesses'].append((guess_clean, "❌ НЕ СЛОВО"))
+            
+            attempts = len(game_data['guesses'])
+            if attempts >= 10:
+                # Завершаем игру
+                secret_word_display = secret_word.upper()
+                if game_data['level'] == 6:
+                    secret_word_display += " (два слова)"
+                
+                game_type = game_data.get('game_type', 'bot')
+                game_id = game_data.get('game_id')
+                
+                response = f"😔 *Не удалось отгадать...*\n\n"
+                
+                if game_type == 'bot':
+                    response += f"🤖 *Игра с ботом*\n"
+                    response += f"📏 Уровень: {WORD_DATABASE[game_data['level']]['name']}\n"
+                else:
+                    response += f"👥 *Игра с другом*\n"
+                
+                response += f"Загаданное слово: *{secret_word_display}*\n\n"
+                response += "Ты слишком много раз пытался использовать случайные буквы!"
+                
+                if user_id in user_games:
+                    del user_games[user_id]
+                
+                # Удаляем активную игру, если это игра с другом
+                if game_id and game_id in active_games:
+                    del active_games[game_id]
+                    if game_id in game_links:
+                        del game_links[game_id]
+                
+                save_data()
+                
+                await notify_owner(context, f"❌ *ИГРА ПРОИГРАНА (случайные буквы)!*\n\n"
+                                      f"Игрок: {user_name}\n"
+                                      f"ID: `{user_id}`\n"
+                                      f"Слово: ||{secret_word}||\n"
+                                      f"Попыток: {attempts}/10\n"
+                                      f"Время: {datetime.now().strftime('%d.%m.%Y %H:%M')}")
+                
+                keyboard = [
+                    [InlineKeyboardButton("🎮 Новая игра", callback_data="play_with_bot")],
+                    [InlineKeyboardButton("🔙 Главное меню", callback_data="back_to_main")]
+                ]
+                reply_markup = InlineKeyboardMarkup(keyboard)
+                
+                await update.message.reply_text(response, parse_mode='Markdown', reply_markup=reply_markup)
+            else:
+                response = f"Попытка {attempts}:\n"
+                response += f"❌ *'{guess_clean.upper()}' - это не слово!*\n\n"
+                response += "💡 *Совет:* Используй настоящие слова с гласными буквами!\n"
+                response += f"Осталось попыток: {10 - attempts}"
+                await update.message.reply_text(response)
+            return
     
     result = check_word(secret_clean, guess_clean)
     game_data['guesses'].append((guess_clean, result))
@@ -1754,6 +1958,7 @@ def main():
     print(f"📝 Логи сохраняются в файл: bot_activity.log")
     print(f"🔔 Уведомления владельца включены!")
     print(f"⚠️ Проверка подписки: РАБОТАЕТ ДЛЯ ВСЕХ ИГРОКОВ (включая переход по ссылке)")
+    print(f"🛡️  Проверка слов: БОТ ПРОВЕРЯЕТ, ЧТО ВВОДЯТ НАСТОЯЩИЕ СЛОВА, А НЕ СЛУЧАЙНЫЙ НАБОР БУКВ!")
     print(f"🔄 Сброс статистики: каждое воскресенье 15:00 МСК")
     print(f"⚙️  Ручной сброс: /reset_weekly (только для владельца)")
     print(f"📁 Данные сохраняются в папке: {DATA_FOLDER}/")
