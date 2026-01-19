@@ -1402,7 +1402,7 @@ async def process_friend_word_input(update: Update, context: ContextTypes.DEFAUL
     
     if not is_valid_russian_word(word):
         await update.message.reply_text(
-            "❌ *Это не похоже на настоящее русское слово!*\n\n"
+            "❌ **Это не похоже на настоящее русское слово!**\n\n"
             "Пожалуйста, введи настоящее слово:\n"
             "• Должно быть хотя бы 1-2 гласные буквы\n"
             "• Нельзя повторять одну букву 4 раза подряд\n"
@@ -1932,3 +1932,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
