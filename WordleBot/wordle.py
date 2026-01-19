@@ -1522,7 +1522,7 @@ async def process_guess(update: Update, context: ContextTypes.DEFAULT_TYPE, gues
         attempts = len(game_data['guesses'])
         if attempts < 3:
             await update.message.reply_text(
-                "⚠️ *Это не похоже на настоящее русское слово!*\n\n"
+                "⚠️ **Это не похоже на настоящее русское слово!**\n\n"
                 "Советы:\n"
                 "• Используй настоящие слова, а не случайные буквы\n"
                 "• В слове должны быть гласные буквы\n"
@@ -1932,4 +1932,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
